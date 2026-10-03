@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameVault - Mockup</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>GameVault</h1>
+    <p>Organizează-ți colecția de jocuri video pe platforme și stări.</p>
+    <p class="app-count">3 jocuri în colecție, dintre care 2 de jucat</p>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Adaugă joc</h2>
+      <form class="item-form">
+        <label>
+          Titlu joc
+          <input type="text" name="titlu" placeholder="Ex: Minecraft" required />
+        </label>
+        <label>
+          Platformă
+          <select name="platforma">
+            <option value="pc">PC</option>
+            <option value="playstation">PlayStation</option>
+            <option value="xbox">Xbox</option>
+          </select>
+        </label>
+        <button type="submit">Adaugă</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Colecția mea</h2>
+      <ul class="item-list">
+        <li class="item-card">
+          <div>
+            <h3>Elden Ring</h3>
+            <span class="badge badge-pc">PC</span>
+          </div>
+          <span class="status">De jucat</span>
+        </li>
+
+        <li class="item-card done">
+          <div>
+            <h3>Resident Evil Requiem</h3>
+            <span class="badge badge-xbox">Xbox</span>
+          </div>
+          <span class="status">Terminat</span>
+        </li>
+
+        <li class="item-card">
+          <div>
+            <h3>Assetto Corsa Competizione</h3>
+            <span class="badge badge-pc">PC</span>
+          </div>
+          <span class="status">De jucat</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="app-footer">Proiect Tehnologii Web</footer>
+</body>
+</html>

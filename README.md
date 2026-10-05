@@ -35,25 +35,25 @@ Details per stage: see the `ai-log/` folder.
 
 ## Stage 2: data logic
 
-Fierul [colectie.js](./colectie.js) contine datele colecției și funcțiile de
-listare, numărare, căutare, adăugare, comutare a stării și ștergere. Funcțiile
-nu modifică array-ul primit: operațiile care schimbă colecția returnează un
-array nou. Validarea respinge titlurile goale, titlurile de peste 100 de
-caractere și platformele care nu se află în lista permisă.
+The [colectie.js](./colectie.js) file contains the collection data and the
+functions for listing, counting, searching, adding, toggling the status, and
+deleting games. The functions do not modify the input array: operations that
+change the collection return a new array. Validation rejects empty titles,
+titles longer than 100 characters, and platforms outside the allowed list.
 
-Fișierul nu folosește DOM-ul sau evenimente; rezultatele demonstrației apar în
-consola browserului (F12).
+The file does not use the DOM or events; demonstration results are displayed
+in the browser console (F12).
 
-### Verificare Etapa 2
+### Stage 2 verification
 
-| ID | Cerință | Unde | Cum se verifică |
+| ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |
-| S2-R1 | Fișier JavaScript legat și mesaje în consolă | [index.html](./index.html), [colectie.js](./colectie.js) | deschide pagina și consola (F12) |
-| S2-R2 | Cel puțin 3 obiecte cu id, titlu, stare și platformă | [colectie.js](./colectie.js) | citește array-ul `jocuri` |
-| S2-R3 | Listare, numărare, căutare, adăugare, comutare și ștergere | [colectie.js](./colectie.js) | verifică rezultatele grupate în consolă |
-| S2-R4 | Validare pentru titlu gol și platformă invalidă | [colectie.js](./colectie.js) | ultimele două mesaje din consolă |
-| S2-R5 | Array-ul original rămâne neschimbat după adăugare | [colectie.js](./colectie.js) | mesajul „Originalul a ramas cu: 3 jocuri” |
-| S2-R6 | README și jurnal AI actualizate | [ai-log/etapa-02.md](./ai-log/etapa-02.md) | citește documentația |
+| S2-R1 | JavaScript file linked and console messages | [index.html](./index.html), [colectie.js](./colectie.js) | open the page and console (F12) |
+| S2-R2 | At least 3 objects with id, title, status, and platform | [colectie.js](./colectie.js) | read the `jocuri` array |
+| S2-R3 | Listing, counting, searching, adding, toggling, and deleting | [colectie.js](./colectie.js) | check the grouped console output |
+| S2-R4 | Validation for an empty title and invalid platform | [colectie.js](./colectie.js) | check the last two console messages |
+| S2-R5 | Original array remains unchanged after adding a game | [colectie.js](./colectie.js) | verify that the original array still contains 3 games |
+| S2-R6 | README and AI log updated | [ai-log/etapa-02.md](./ai-log/etapa-02.md) | read the documentation |
 
 ## Verification checklist
 

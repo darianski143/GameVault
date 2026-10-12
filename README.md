@@ -55,6 +55,32 @@ in the browser console (F12).
 | S2-R5 | Original array remains unchanged after adding a game | [colectie.js](./colectie.js) | verify that the original array still contains 3 games |
 | S2-R6 | README and AI log updated | [ai-log/etapa-02.md](./ai-log/etapa-02.md) | read the documentation |
 
+## Stage 3: Vite and React project
+
+The app now lives in `frontend/`, built with Vite. The data from stage 2 moved into the main component; the list is still printed raw.
+
+## How to run
+
+Navigate to the frontend folder, install dependencies, and start the development server:
+
+cd frontend
+npm install
+npm run dev
+
+Then open the address printed in the terminal (http://localhost:5173).
+
+### Stage 3 Verification Table
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S3-R1 | npm run dev starts without errors | frontend/package.json | npm install, npm run dev |
+| S3-R2 | app name and counter computed from data | frontend/src/App.jsx | edit data, save |
+| S3-R3 | data from README, not from the example | frontend/src/App.jsx | compare with README |
+| S3-R4 | stage 1 styles reused | frontend/src/App.css | look at the page |
+| S3-R5 | node_modules ignored, build passes | frontend/.gitignore | npm run build |
+| S3-R6 | README Stage 3 section + AI log | README.md, ai-log/etapa-03.md | read |
+| S3-R7 | commit "Stage 3" pushed | link to the commit | commit history |
+
 ## Verification checklist
 
 | ID | Requirement | Where (permalink) | How to check |

@@ -63,9 +63,9 @@ The app now lives in `frontend/`, built with Vite. The data from stage 2 moved i
 
 Navigate to the frontend folder, install dependencies, and start the development server:
 
-cd frontend
-npm install
-npm run dev
+`cd frontend`
+`npm install`
+`npm run dev`
 
 Then open the address printed in the terminal (http://localhost:5173).
 

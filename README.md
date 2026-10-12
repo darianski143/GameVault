@@ -69,18 +69,6 @@ npm run dev
 
 Then open the address printed in the terminal (http://localhost:5173).
 
-### Stage 3 Verification Table
-
-| ID | Requirement | Where (permalink) | How to check |
-| :--- | :--- | :--- | :--- |
-| S3-R1 | npm run dev starts without errors | frontend/package.json | npm install, npm run dev |
-| S3-R2 | app name and counter computed from data | frontend/src/App.jsx | edit data, save |
-| S3-R3 | data from README, not from the example | frontend/src/App.jsx | compare with README |
-| S3-R4 | stage 1 styles reused | frontend/src/App.css | look at the page |
-| S3-R5 | node_modules ignored, build passes | frontend/.gitignore | npm run build |
-| S3-R6 | README Stage 3 section + AI log | README.md, ai-log/etapa-03.md | read |
-| S3-R7 | commit "Stage 3" pushed | link to the commit | commit history |
-
 ## Verification checklist
 
 | ID | Requirement | Where (permalink) | How to check |
@@ -93,3 +81,15 @@ Then open the address printed in the terminal (http://localhost:5173).
 | S1-R6 | 2 columns on desktop, 1 under 700px | [style.css#L180-L184](https://github.com/darianski143/GameVault/blob/58ba2c5f25dfad048db80cd1d35f75010808cc51/style.css#L192-L196) | resize < 700px |
 | S1-R7 | visible focus, readable dark theme | [style.css#L174-L203](https://github.com/darianski143/GameVault/blob/58ba2c5f25dfad048db80cd1d35f75010808cc51/style.css#L187-L213) | Tab; dark mode |
 | S1-R8 | commit "Stage 1" pushed | [Commit Link](https://github.com/darianski143/GameVault/commit/58ba2c5f25dfad048db80cd1d35f75010808cc51) | commit history |
+
+### Stage 3 Verification Table
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S3-R1 | npm run dev starts without errors | [frontend/package.json](https://github.com/darianski143/GameVault/blob/8b3dc61f9261db12e661bc6abe8250440f29acd0/frontend/package.json) | `npm install`, `npm run dev` |
+| S3-R2 | app name and counter computed from data | [frontend/src/App.jsx#L27-L38](https://github.com/darianski143/GameVault/blob/8b3dc61f9261db12e661bc6abe8250440f29acd0/frontend/src/App.jsx#L27-L38) | edit data, save |
+| S3-R3 | data from README, not from the example | [frontend/src/App.jsx#L1-L24](https://github.com/darianski143/GameVault/blob/8b3dc61f9261db12e661bc6abe8250440f29acd0/frontend/src/App.jsx#L1-L24) | compare with README |
+| S3-R4 | stage 1 styles reused | [frontend/src/App.css](https://github.com/darianski143/GameVault/blob/8b3dc61f9261db12e661bc6abe8250440f29acd0/frontend/src/App.css) | look at the page |
+| S3-R5 | node_modules ignored, build passes | [frontend/.gitignore](https://github.com/darianski143/GameVault/blob/8b3dc61f9261db12e661bc6abe8250440f29acd0/frontend/.gitignore) | `npm run build` |
+| S3-R6 | README Stage 3 section + AI log | [ai-log/etapa-03.md](https://github.com/darianski143/GameVault/blob/8b3dc61f9261db12e661bc6abe8250440f29acd0/ai-log/etapa-03.md) | read |
+| S3-R7 | commit "Stage 3" pushed | [8b3dc61](https://github.com/darianski143/GameVault/commit/8b3dc61f9261db12e661bc6abe8250440f29acd0) | commit history |

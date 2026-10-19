@@ -32,6 +32,9 @@ Details per stage: see the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
 - [x] Stage 2: data logic in JavaScript
+- [x] Stage 3: Vite and React project
+- [x] Stage 4: components rendered from data
+- [ ] Stage 5: local state and events
 
 ## Stage 2: data logic
 
@@ -68,6 +71,24 @@ Navigate to the frontend folder, install dependencies, and start the development
 `npm run dev`
 
 Then open the address printed in the terminal (http://localhost:5173).
+
+## Stage 4: components
+
+The list is rendered from the data, through two components:
+- `GameList` receives the whole array and renders one card per item
+- `GameCard` receives a single item through props and displays it
+
+### Stage 4 Verification Table
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S4-R1 | 2+ components in src/components/ | [frontend/src/components/](frontend/src/components/) | open folder |
+| S4-R2 | card receives data through props | [frontend/src/components/GameCard.jsx](frontend/src/components/GameCard.jsx) | read |
+| S4-R3 | map + key={id}, no console warnings | [frontend/src/components/GameList.jsx](frontend/src/components/GameList.jsx) | F12, Console |
+| S4-R4 | message for empty list | [frontend/src/components/GameList.jsx](frontend/src/components/GameList.jsx) | set array to [] |
+| S4-R5 | state changes the card look | [frontend/src/components/GameCard.jsx](frontend/src/components/GameCard.jsx) | toggle completed flag |
+| S4-R6 | README Stage 4 section + AI log | [README.md](README.md), [ai-log/etapa-04.md](ai-log/etapa-04.md) | read |
+| S4-R7 | commit "Stage 4" pushed | link to the commit | commit history |
 
 ## Verification checklist
 

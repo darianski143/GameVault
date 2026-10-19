@@ -1,11 +1,13 @@
+import GameList from "./components/GameList.jsx";
+
 const jocuri = [
-    { id: 1, title: "Elden Ring", completed: false, platform: "pc" },
-    { id: 2, title: "Resident Evil Requiem", completed: true, platform: "xbox" },
-    { id: 3, title: "Assetto Corsa Competizione", completed: false, platform: "pc" }
+  { id: 1, titlu: "Elden Ring", platforma: "pc", completed: false },
+  { id: 2, titlu: "Resident Evil Requiem", platforma: "xbox", completed: true },
+  { id: 3, titlu: "Assetto Corsa Competizione", platforma: "pc", completed: false },
 ];
 
 export default function App() {
-  const deJucat = jocuri.filter((j) => !j.terminat).length;
+  const deJucat = jocuri.filter((j) => !j.completed).length;
 
   return (
     <>
@@ -20,10 +22,11 @@ export default function App() {
       <main className="container">
         <section className="panel">
           <h2>Jocurile mele</h2>
-          {/* Temporar: date brute; componentele apar in Etapa 4 */}
-          <pre>{JSON.stringify(jocuri, null, 2)}</pre>
+          <GameList jocuri={jocuri} />
         </section>
       </main>
+
+      <footer className="app-footer">Proiect Tehnologii Web</footer>
     </>
   );
 }

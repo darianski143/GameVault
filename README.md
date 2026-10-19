@@ -88,7 +88,7 @@ The list is rendered from the data, through two components:
 | S4-R4 | message for empty list | [frontend/src/components/GameList.jsx](frontend/src/components/GameList.jsx) | set array to [] |
 | S4-R5 | state changes the card look | [frontend/src/components/GameCard.jsx](frontend/src/components/GameCard.jsx) | toggle completed flag |
 | S4-R6 | README Stage 4 section + AI log | [README.md](README.md), [ai-log/etapa-04.md](ai-log/etapa-04.md) | read |
-| S4-R7 | commit "Stage 4" pushed | link to the commit | commit history |
+| S4-R7 | commit "Stage 4" pushed | [commit](https://github.com/darianski143/GameVault/commit/96327b17ee2523718c705ddd0ce7841a70d634b1) | commit history |
 
 ## Verification checklist
 

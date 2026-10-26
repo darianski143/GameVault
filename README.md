@@ -19,13 +19,15 @@ Sample data used across all stages:
 3. Assetto Corsa Competizione, active, PC
 
 ## How to run
-Open `index.html` in a browser. No build step, no server.
+See the Stage 3 section: `cd frontend`, `npm install`, `npm run dev`.
+The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 
 ## AI usage
 
 | Tool | Used for |
 | :--- | :--- |
 | Gemini | Assistance with semantic HTML structure, CSS Grid/Flexbox layouts, and color variables |
+| Claude | Stage 5: adapting the guide to GameVault (state, events, theme toggle) and documentation |
 
 Details per stage: see the `ai-log/` folder.
 
@@ -34,7 +36,8 @@ Details per stage: see the `ai-log/` folder.
 - [x] Stage 2: data logic in JavaScript
 - [x] Stage 3: Vite and React project
 - [x] Stage 4: components rendered from data
-- [ ] Stage 5: local state and events
+- [x] Stage 5: local state and events
+- [ ] Stage 6: loading data from a mock API
 
 ## Stage 2: data logic
 
@@ -89,6 +92,35 @@ The list is rendered from the data, through two components:
 | S4-R5 | state changes the card look | [frontend/src/components/GameCard.jsx](frontend/src/components/GameCard.jsx) | toggle completed flag |
 | S4-R6 | README Stage 4 section + AI log | [README.md](README.md), [ai-log/etapa-04.md](ai-log/etapa-04.md) | read |
 | S4-R7 | commit "Stage 4" pushed | [commit](https://github.com/darianski143/GameVault/commit/96327b17ee2523718c705ddd0ce7841a70d634b1) | commit history |
+
+## Stage 5: local state and events
+
+The list lives in React state. Checking and deleting games works from the page,
+and the counter in the header follows automatically. A button in the header
+switches between light and dark mode. Changes are lost on refresh, which is
+what stage 6 and stage 10 fix.
+
+- `App` owns the `jocuri` state and the only functions that change it:
+  `handleToggleCompleted` (`map` + `{ ...j, completed: !j.completed }`) and
+  `handleDelete` (`filter`), both with the `setJocuri((prev) => ...)` form
+- `GameList` only passes `onToggle` and `onDelete` down to each card
+- `GameCard` has a controlled checkbox and a delete button with `aria-label`
+- the "de jucat" counter is derived from the list on every render, not stored in state
+- the theme is kept in state and written as `data-theme` on `<html>`; the CSS
+  redefines only the color variables
+
+### Stage 5 Verification Table
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S5-R1 | list kept in useState, in App | [App.jsx#L17](frontend/src/App.jsx#L17) | read |
+| S5-R2 | toggling changes state and card look | [App.jsx#L21-L25](frontend/src/App.jsx#L21-L25), [GameCard.jsx#L9-L15](frontend/src/components/GameCard.jsx#L9-L15) | click a checkbox |
+| S5-R3 | delete removes the item | [App.jsx#L27-L29](frontend/src/App.jsx#L27-L29), [GameCard.jsx#L25-L31](frontend/src/components/GameCard.jsx#L25-L31) | click Șterge |
+| S5-R4 | header counter derived, not in state | [App.jsx#L39](frontend/src/App.jsx#L39) | toggle, watch header |
+| S5-R5 | immutable updates (no push, splice, assignment) | [App.jsx#L21-L29](frontend/src/App.jsx#L21-L29) | read |
+| S5-R6 | light / dark toggle: state + data-theme on html | [App.jsx#L32-L36](frontend/src/App.jsx#L32-L36), [App.css#L199-L234](frontend/src/App.css#L199-L234) | click the button, both system themes |
+| S5-R7 | no console warnings; README + AI log | [README.md](README.md), [ai-log/etapa-05.md](ai-log/etapa-05.md) | F12, Console |
+| S5-R8 | commit "Stage 5" pushed | commit link | commit history |
 
 ## Verification checklist
 

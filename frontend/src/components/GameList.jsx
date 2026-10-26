@@ -1,6 +1,7 @@
 import GameCard from "./GameCard.jsx";
 
-export default function GameList({ jocuri }) {
+// Primește lista și funcțiile și le transmite fiecărui card.
+export default function GameList({ jocuri, onToggle, onDelete }) {
   if (!jocuri || jocuri.length === 0) {
     return <p className="empty">Nu există niciun joc în colecție.</p>;
   }
@@ -8,7 +9,12 @@ export default function GameList({ jocuri }) {
   return (
     <ul className="item-list">
       {jocuri.map((game) => (
-        <GameCard key={game.id} game={game} />
+        <GameCard
+          key={game.id}
+          game={game}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
       ))}
     </ul>
   );

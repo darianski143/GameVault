@@ -11,6 +11,7 @@
   --accent-dark: #047857;
   --accent-soft: #d1fae5;
   --border: #e2e8f0;
+  --danger: #dc2626;
 
   --badge-pc: #0284c7;
   --badge-playstation: #4f46e5;
@@ -195,8 +196,9 @@ body {
   }
 }
 
+/* Tema sistemului, dacă utilizatorul nu a ales explicit tema luminoasă */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #090d16;
     --card: #111827;
     --text: #f3f4f6;
@@ -205,9 +207,87 @@ body {
     --accent-dark: #059669;
     --accent-soft: #064e3b;
     --border: #1f2937;
+    --danger: #f87171;
 
     --badge-pc: #38bdf8;
     --badge-playstation: #818cf8;
     --badge-xbox: #4ade80;
   }
+}
+
+/* Etapa 5: tema aleasă din buton are prioritate față de cea a sistemului */
+:root[data-theme="dark"] {
+  --bg: #090d16;
+  --card: #111827;
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #10b981;
+  --accent-dark: #059669;
+  --accent-soft: #064e3b;
+  --border: #1f2937;
+  --danger: #f87171;
+
+  --badge-pc: #38bdf8;
+  --badge-playstation: #818cf8;
+  --badge-xbox: #4ade80;
+
+}
+
+/* Etapa 5: checkbox și buton de ștergere în card */
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.task-main input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-danger {
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* Etapa 5: butonul de comutare a temei, în colțul antetului */
+.app-header {
+  position: relative;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
 }

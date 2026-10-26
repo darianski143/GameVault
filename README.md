@@ -113,14 +113,14 @@ what stage 6 and stage 10 fix.
 
 | ID | Requirement | Where (permalink) | How to check |
 | :--- | :--- | :--- | :--- |
-| S5-R1 | list kept in useState, in App | [App.jsx#L17](frontend/src/App.jsx#L17) | read |
-| S5-R2 | toggling changes state and card look | [App.jsx#L21-L25](frontend/src/App.jsx#L21-L25), [GameCard.jsx#L9-L15](frontend/src/components/GameCard.jsx#L9-L15) | click a checkbox |
-| S5-R3 | delete removes the item | [App.jsx#L27-L29](frontend/src/App.jsx#L27-L29), [GameCard.jsx#L25-L31](frontend/src/components/GameCard.jsx#L25-L31) | click Șterge |
-| S5-R4 | header counter derived, not in state | [App.jsx#L39](frontend/src/App.jsx#L39) | toggle, watch header |
-| S5-R5 | immutable updates (no push, splice, assignment) | [App.jsx#L21-L29](frontend/src/App.jsx#L21-L29) | read |
-| S5-R6 | light / dark toggle: state + data-theme on html | [App.jsx#L32-L36](frontend/src/App.jsx#L32-L36), [App.css#L199-L234](frontend/src/App.css#L199-L234) | click the button, both system themes |
-| S5-R7 | no console warnings; README + AI log | [README.md](README.md), [ai-log/etapa-05.md](ai-log/etapa-05.md) | F12, Console |
-| S5-R8 | commit "Stage 5" pushed | commit link | commit history |
+| S5-R1 | list kept in useState, in App | [App.jsx#L17](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L17) | read |
+| S5-R2 | toggling changes state and card look | [App.jsx#L21-L25](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L21-L25), [GameCard.jsx#L9-L15](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/components/GameCard.jsx#L9-L15) | click a checkbox |
+| S5-R3 | delete removes the item | [App.jsx#L27-L29](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L27-L29), [GameCard.jsx#L25-L31](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/components/GameCard.jsx#L25-L31) | click Șterge |
+| S5-R4 | header counter derived, not in state | [App.jsx#L39](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L39) | toggle, watch header |
+| S5-R5 | immutable updates (no push, splice, assignment) | [App.jsx#L21-L29](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L21-L29) | read |
+| S5-R6 | light / dark toggle: state + data-theme on html | [App.jsx#L32-L36](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L32-L36), [App.css#L199-L234](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.css#L199-L234) | click the button, both system themes |
+| S5-R7 | no console warnings; README + AI log | [README.md](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/README.md), [ai-log/etapa-05.md](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/ai-log/etapa-05.md) | F12, Console |
+| S5-R8 | commit "Stage 5" pushed | [f3c3b0e](https://github.com/darianski143/GameVault/commit/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b) | commit history |
 
 ## Verification checklist
 

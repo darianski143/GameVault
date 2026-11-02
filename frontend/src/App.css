@@ -12,6 +12,8 @@
   --accent-soft: #d1fae5;
   --border: #e2e8f0;
   --danger: #dc2626;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
 
   --badge-pc: #0284c7;
   --badge-playstation: #4f46e5;
@@ -208,6 +210,8 @@ body {
     --accent-soft: #064e3b;
     --border: #1f2937;
     --danger: #f87171;
+  --error-bg: #3b1d1d;
+  --error-border: #7f2a2a;
 
     --badge-pc: #38bdf8;
     --badge-playstation: #818cf8;
@@ -226,6 +230,8 @@ body {
   --accent-soft: #064e3b;
   --border: #1f2937;
   --danger: #f87171;
+  --error-bg: #3b1d1d;
+  --error-border: #7f2a2a;
 
   --badge-pc: #38bdf8;
   --badge-playstation: #818cf8;
@@ -290,4 +296,17 @@ body {
 
 .theme-toggle:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+
+/* Etapa 6: stări de încărcare și de eroare */
+.info {
+  color: var(--muted);
+}
+
+.error {
+  color: var(--danger);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 8px;
+  padding: 10px 12px;
 }

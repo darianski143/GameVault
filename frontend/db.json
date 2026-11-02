@@ -1,0 +1,10 @@
+{
+  "jocuri": [
+    { "id": 1, "titlu": "Elden Ring", "platforma": "pc", "completed": false },
+    { "id": 2, "titlu": "Resident Evil Requiem", "platforma": "xbox", "completed": true },
+    { "id": 3, "titlu": "Assetto Corsa Competizione", "platforma": "pc", "completed": false },
+    { "id": 4, "titlu": "Ghost of Yotei", "platforma": "playstation", "completed": false },
+    { "id": 5, "titlu": "Forza Horizon 5", "platforma": "xbox", "completed": true },
+    { "id": 6, "titlu": "God of War Ragnarök", "platforma": "playstation", "completed": true }
+  ]
+}

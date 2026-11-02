@@ -1,12 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameList from "./components/GameList.jsx";
-
-// Datele temei, aceleași ca în README (doar valoarea inițială)
-const JOCURI_INITIALE = [
-  { id: 1, titlu: "Elden Ring", platforma: "pc", completed: false },
-  { id: 2, titlu: "Resident Evil Requiem", platforma: "xbox", completed: true },
-  { id: 3, titlu: "Assetto Corsa Competizione", platforma: "pc", completed: false },
-];
+import { fetchJocuri } from "./api.js";
 
 // Tema de pornire: cea a sistemului de operare
 function temaInitiala() {
@@ -14,10 +8,34 @@ function temaInitiala() {
 }
 
 export default function App() {
-  const [jocuri, setJocuri] = useState(JOCURI_INITIALE);
+  // Datele vin de la server (db.json prin json-server), deci lista pornește goală
+  const [jocuri, setJocuri] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [tema, setTema] = useState(temaInitiala);
 
-  // Actualizare imutabilă: listă nouă, obiect nou pentru jocul schimbat
+  // Rulează o singură dată, după prima randare
+  useEffect(() => {
+    let ignore = false; // nu se setează state dacă componenta a dispărut între timp
+
+    async function load() {
+      try {
+        const data = await fetchJocuri();
+        if (!ignore) setJocuri(data);
+      } catch (err) {
+        if (!ignore) setError(err.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+
+    load();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // În Etapa 6 modificările rămân locale: se pierd la refresh (rezolvat în Etapa 7)
   function handleToggleCompleted(id) {
     setJocuri((prev) =>
       prev.map((j) => (j.id === id ? { ...j, completed: !j.completed } : j))
@@ -58,11 +76,20 @@ export default function App() {
       <main className="container">
         <section className="panel">
           <h2>Jocurile mele</h2>
-          <GameList
-            jocuri={jocuri}
-            onToggle={handleToggleCompleted}
-            onDelete={handleDelete}
-          />
+
+          {loading && <p className="info">Se încarcă colecția...</p>}
+          {error && (
+            <p className="error" role="alert">
+              Nu am putut încărca jocurile: {error}. Rulează <code>npm run api</code>?
+            </p>
+          )}
+          {!loading && !error && (
+            <GameList
+              jocuri={jocuri}
+              onToggle={handleToggleCompleted}
+              onDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
 

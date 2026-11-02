@@ -19,7 +19,7 @@ Sample data used across all stages:
 3. Assetto Corsa Competizione, active, PC
 
 ## How to run
-See the Stage 3 section: `cd frontend`, `npm install`, `npm run dev`.
+See the Stage 3 and Stage 6 sections: `cd frontend`, `npm install`, then `npm run api` and `npm run dev` in two terminals.
 The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 
 ## AI usage
@@ -28,6 +28,7 @@ The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 | :--- | :--- |
 | Gemini | Assistance with semantic HTML structure, CSS Grid/Flexbox layouts, and color variables |
 | Claude | Stage 5: adapting the guide to GameVault (state, events, theme toggle) and documentation |
+| Claude | Stage 6: adapting the guide to GameVault (json-server, api.js, useEffect, loading/error states) and documentation |
 
 Details per stage: see the `ai-log/` folder.
 
@@ -37,7 +38,8 @@ Details per stage: see the `ai-log/` folder.
 - [x] Stage 3: Vite and React project
 - [x] Stage 4: components rendered from data
 - [x] Stage 5: local state and events
-- [ ] Stage 6: loading data from a mock API
+- [x] Stage 6: data from a mock API
+- [ ] Stage 7: form and validation
 
 ## Stage 2: data logic
 
@@ -121,6 +123,29 @@ what stage 6 and stage 10 fix.
 | S5-R6 | light / dark toggle: state + data-theme on html | [App.jsx#L32-L36](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.jsx#L32-L36), [App.css#L199-L234](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/frontend/src/App.css#L199-L234) | click the button, both system themes |
 | S5-R7 | no console warnings; README + AI log | [README.md](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/README.md), [ai-log/etapa-05.md](https://github.com/darianski143/GameVault/blob/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b/ai-log/etapa-05.md) | F12, Console |
 | S5-R8 | commit "Stage 5" pushed | [f3c3b0e](https://github.com/darianski143/GameVault/commit/f3c3b0ef70dc8f698fa76d7fa202edabd432df0b) | commit history |
+
+## Stage 6: data from a mock API
+
+The list is served by json-server from `frontend/db.json` (key `jocuri`, route `/jocuri`).
+The app fetches it on load and shows a loading state and an error state.
+
+    cd frontend
+    npm run api    # terminal 1, http://localhost:3001/jocuri
+    npm run dev    # terminal 2, http://localhost:5173
+
+- `db.json` holds 6 games, mixed platforms (PC, PlayStation, Xbox) and statuses
+- `src/api.js` is the only file that calls `fetch`; `fetchJocuri` checks `res.ok`
+  and throws `Eroare server: <status>` otherwise
+- the API address comes from `VITE_API_URL` (documented in `.env.example`),
+  with `http://localhost:3001` as the fallback
+- `App` starts with `useState([])` and loads the list in a `useEffect(..., [])`,
+  with `loading` / `error` states and an `ignore` cleanup flag
+- three states on screen: "Se încarcă colecția...", the list, or an error box
+  that also says what to do (`npm run api`)
+- toggling and deleting are still local and are lost on refresh; stage 7 saves them on the server
+
+To see the loading state, start the API with a delay:
+`npx json-server --watch db.json --port 3001 --delay 4000`.
 
 ## Verification checklist
 

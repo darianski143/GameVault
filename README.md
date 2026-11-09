@@ -29,6 +29,7 @@ The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 | Gemini | Assistance with semantic HTML structure, CSS Grid/Flexbox layouts, and color variables |
 | Claude | Stage 5: adapting the guide to GameVault (state, events, theme toggle) and documentation |
 | Claude | Stage 6: adapting the guide to GameVault (json-server, api.js, useEffect, loading/error states) and documentation |
+| Claude | Stage 7: adapting the guide to GameVault (GameForm, CRUD requests, tw.json, data-testid) and documentation |
 
 Details per stage: see the `ai-log/` folder.
 
@@ -39,7 +40,8 @@ Details per stage: see the `ai-log/` folder.
 - [x] Stage 4: components rendered from data
 - [x] Stage 5: local state and events
 - [x] Stage 6: data from a mock API
-- [ ] Stage 7: form and validation
+- [x] Stage 7: form and validation
+- [ ] Stage 8: routing and detail page
 
 ## Stage 2: data logic
 
@@ -146,6 +148,30 @@ The app fetches it on load and shows a loading state and an error state.
 
 To see the loading state, start the API with a delay:
 `npx json-server --watch db.json --port 3001 --delay 4000`.
+
+## Stage 7: form and validation
+
+Games can be added from the page. The form is controlled and validated,
+and every change (add, toggle, delete) goes to the API before it shows up
+in the list, so everything survives a page refresh.
+
+- `src/api.js` has one shared `request` function (JSON header, `res.ok` check,
+  204 handling) and `fetchJocuri`, `createJoc` (POST), `updateJoc` (PATCH),
+  `deleteJoc` (DELETE) on top of it; it is still the only file with `fetch`
+- `GameForm` is a controlled form (title + platform select): `value` + `onChange`
+  on every field, `noValidate`, errors shown next to the form, never with `alert`
+- validation: the title is required and has at most 100 characters; the platform
+  must be one of PC / PlayStation / Xbox
+- the button is disabled and shows "Se salvează..." while sending; the form is
+  cleared only after a successful save, so the text is kept if the API is down
+- `App` updates the list with the object returned by the server (the id comes
+  from json-server), never with what was sent
+- `tw.json` (repo root) and the `data-testid` attributes mark the form, the cards
+  and the messages for the automatic check
+- the layout is back to two columns (form left, list right), one column under 700px
+
+To see the disabled button, start the API with a delay:
+`npx json-server --watch db.json --port 3001 --delay 3000`.
 
 ## Verification checklist
 

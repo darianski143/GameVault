@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GameList from "./components/GameList.jsx";
-import { fetchJocuri } from "./api.js";
+import GameForm from "./components/GameForm.jsx";
+import { createJoc, deleteJoc, fetchJocuri, updateJoc } from "./api.js";
 
 // Tema de pornire: cea a sistemului de operare
 function temaInitiala() {
@@ -23,7 +24,9 @@ export default function App() {
         const data = await fetchJocuri();
         if (!ignore) setJocuri(data);
       } catch (err) {
-        if (!ignore) setError(err.message);
+        if (!ignore) {
+          setError(`Nu am putut încărca jocurile: ${err.message}. Rulează npm run api?`);
+        }
       } finally {
         if (!ignore) setLoading(false);
       }
@@ -35,15 +38,32 @@ export default function App() {
     };
   }, []);
 
-  // În Etapa 6 modificările rămân locale: se pierd la refresh (rezolvat în Etapa 7)
-  function handleToggleCompleted(id) {
-    setJocuri((prev) =>
-      prev.map((j) => (j.id === id ? { ...j, completed: !j.completed } : j))
-    );
+  // Întâi serverul, apoi state-ul: pe ecran ajunge doar ce s-a salvat.
+  // Fără try: eroarea ajunge înapoi în formular, care o afișează.
+  async function handleAdd(joc) {
+    const creat = await createJoc(joc); // serverul întoarce jocul cu id
+    setJocuri((prev) => [...prev, creat]);
   }
 
-  function handleDelete(id) {
-    setJocuri((prev) => prev.filter((j) => j.id !== id));
+  async function handleToggleCompleted(id) {
+    const joc = jocuri.find((j) => j.id === id);
+    try {
+      const actualizat = await updateJoc(id, { completed: !joc.completed });
+      setError(null);
+      setJocuri((prev) => prev.map((j) => (j.id === id ? actualizat : j)));
+    } catch (err) {
+      setError(`Nu am putut actualiza jocul: ${err.message}`);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await deleteJoc(id);
+      setError(null);
+      setJocuri((prev) => prev.filter((j) => j.id !== id));
+    } catch (err) {
+      setError(`Nu am putut șterge jocul: ${err.message}`);
+    }
   }
 
   // Comutarea temei: state-ul pentru buton, atributul data-theme pentru CSS
@@ -75,15 +95,24 @@ export default function App() {
 
       <main className="container">
         <section className="panel">
+          <h2>Adaugă un joc</h2>
+          <GameForm onAdd={handleAdd} />
+        </section>
+
+        <section className="panel">
           <h2>Jocurile mele</h2>
 
-          {loading && <p className="info">Se încarcă colecția...</p>}
-          {error && (
-            <p className="error" role="alert">
-              Nu am putut încărca jocurile: {error}. Rulează <code>npm run api</code>?
+          {loading && (
+            <p className="info" data-testid="loading">
+              Se încarcă colecția...
             </p>
           )}
-          {!loading && !error && (
+          {error && (
+            <p className="error" role="alert" data-testid="error">
+              {error}
+            </p>
+          )}
+          {!loading && (
             <GameList
               jocuri={jocuri}
               onToggle={handleToggleCompleted}

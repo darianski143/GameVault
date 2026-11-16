@@ -10,6 +10,8 @@ Track gaming platforms, playthrough statuses, and gaming genres in one clean int
 | title | text | required, max 100 chars (e.g., game title) |
 | completed | boolean | toggled from the list, default false (De jucat / Terminat) |
 | platform | fixed values | PC, PlayStation, Xbox |
+| developer | text | optional, shown only on the detail page (from stage 8) |
+| year | number | optional, release year, shown only on the detail page (from stage 8) |
 | genre | relation | RPG, Survival Horror, Simulation/Racing (from week 10) |
 | user | relation | the owner of the collection (from week 11) |
 
@@ -30,6 +32,7 @@ The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 | Claude | Stage 5: adapting the guide to GameVault (state, events, theme toggle) and documentation |
 | Claude | Stage 6: adapting the guide to GameVault (json-server, api.js, useEffect, loading/error states) and documentation |
 | Claude | Stage 7: adapting the guide to GameVault (GameForm, CRUD requests, tw.json, data-testid) and documentation |
+| Claude | Stage 8: adapting the guide to GameVault (React Router, Layout, detail page, CSS Modules) and documentation |
 
 Details per stage: see the `ai-log/` folder.
 
@@ -41,7 +44,8 @@ Details per stage: see the `ai-log/` folder.
 - [x] Stage 5: local state and events
 - [x] Stage 6: data from a mock API
 - [x] Stage 7: form and validation
-- [ ] Stage 8: routing and detail page
+- [x] Stage 8: routing and detail page
+- [ ] Stage 9: own backend with Express
 
 ## Stage 2: data logic
 
@@ -172,6 +176,35 @@ in the list, so everything survives a page refresh.
 
 To see the disabled button, start the API with a delay:
 `npx json-server --watch db.json --port 3001 --delay 3000`.
+
+## Stage 8: routing and detail page
+
+Three pages behind React Router: the collection, a detail page at `/jocuri/:id`,
+and an about page, plus a 404 page. Component styles moved to CSS Modules.
+
+- `main.jsx` wraps the app in `BrowserRouter`; `App.jsx` now holds only the route map
+  (`/`, `/jocuri/:id`, `/despre`, `*`), all nested in a `Layout` route
+- `Layout` is the shared header (logo, `NavLink`s „Colecția” / „Despre”, theme toggle),
+  the `<Outlet />` for the current page and the footer; `NavLink` marks the active page,
+  with `end` on the `/` link
+- `pages/JocuriPage.jsx` holds everything `App.jsx` had in stage 7 (state, effect,
+  add / toggle / delete); the counter moved from the header into the list panel
+- the title in `GameCard` is a `Link` to `/jocuri/<id>` (`data-testid="item-link"`),
+  the checkbox and the delete button still work from the card
+- `pages/JocDetaliuPage.jsx` reads the id with `useParams`, loads exactly that game with
+  `fetchJoc(id)` (effect on `[id]`) and shows fields that do not fit on the card:
+  developer and release year (added to `db.json`); `/jocuri/999` shows an error and a way back
+- `pages/NotFoundPage.jsx` catches any unknown address (`data-testid="not-found"`)
+- `App.css` became `index.css`, with only the color variables, the themes and shared
+  classes (`.panel`, `.btn`, `.btn-danger`, `.error`, `.info`, `.empty`, badges);
+  every component and page has its own `.module.css`
+- the platform list and labels live in `src/constants.js`, shared by the form, the card
+  and the detail page
+
+    cd frontend
+    npm install
+    npm run api    # terminal 1
+    npm run dev    # terminal 2, then open http://localhost:5173/jocuri/1
 
 ## Verification checklist
 

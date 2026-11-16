@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.form input,
+.form select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+/* câmpul greșit este marcat cu roșu */
+.form input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.form :global(.error) {
+  margin: 0;
+  font-size: 0.9rem;
+}

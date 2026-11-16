@@ -1,4 +1,5 @@
 import GameCard from "./GameCard.jsx";
+import styles from "./GameList.module.css";
 
 // Primește lista și funcțiile și le transmite fiecărui card.
 export default function GameList({ jocuri, onToggle, onDelete }) {
@@ -11,7 +12,7 @@ export default function GameList({ jocuri, onToggle, onDelete }) {
   }
 
   return (
-    <ul className="item-list">
+    <ul className={styles.list}>
       {jocuri.map((game) => (
         <GameCard
           key={game.id}

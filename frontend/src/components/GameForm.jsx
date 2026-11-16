@@ -1,11 +1,7 @@
 import { useState } from "react";
+import { PLATFORME } from "../constants.js";
+import styles from "./GameForm.module.css";
 
-// Valorile fixe pentru platformă, aceleași ca în db.json
-const PLATFORME = [
-  { value: "pc", label: "PC" },
-  { value: "playstation", label: "PlayStation" },
-  { value: "xbox", label: "Xbox" },
-];
 const TITLU_MAX = 100;
 const PLATFORMA_IMPLICITA = "pc";
 
@@ -46,7 +42,7 @@ export default function GameForm({ onAdd }) {
   }
 
   return (
-    <form className="item-form" onSubmit={handleSubmit} noValidate data-testid="form">
+    <form className={styles.form} onSubmit={handleSubmit} noValidate data-testid="form">
       <label>
         Titlu
         <input
@@ -78,7 +74,7 @@ export default function GameForm({ onAdd }) {
           {eroare}
         </p>
       )}
-      <button type="submit" disabled={trimite} data-testid="form-submit">
+      <button type="submit" className="btn" disabled={trimite} data-testid="form-submit">
         {trimite ? "Se salvează..." : "Adaugă jocul"}
       </button>
     </form>

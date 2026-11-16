@@ -1,0 +1,166 @@
+/* Stiluri globale: variabile de culoare, elemente de bază, clase comune.
+   Stilurile fiecărei componente stau lângă ea, în fișiere *.module.css */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #059669;
+  --accent-dark: #047857;
+  --accent-soft: #d1fae5;
+  --border: #e2e8f0;
+  --danger: #dc2626;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --radius: 12px;
+
+  --badge-pc: #0284c7;
+  --badge-playstation: #4f46e5;
+  --badge-xbox: #16a34a;
+}
+
+/* Tema sistemului, dacă utilizatorul nu a ales explicit tema luminoasă */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #090d16;
+    --card: #111827;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --accent-soft: #064e3b;
+    --border: #1f2937;
+    --danger: #f87171;
+    --error-bg: #3b1d1d;
+    --error-border: #7f2a2a;
+
+    --badge-pc: #38bdf8;
+    --badge-playstation: #818cf8;
+    --badge-xbox: #4ade80;
+  }
+}
+
+/* Tema aleasă din buton are prioritate față de cea a sistemului */
+:root[data-theme="dark"] {
+  --bg: #090d16;
+  --card: #111827;
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #10b981;
+  --accent-dark: #059669;
+  --accent-soft: #064e3b;
+  --border: #1f2937;
+  --danger: #f87171;
+  --error-bg: #3b1d1d;
+  --error-border: #7f2a2a;
+
+  --badge-pc: #38bdf8;
+  --badge-playstation: #818cf8;
+  --badge-xbox: #4ade80;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.info {
+  color: var(--muted);
+}
+
+.empty {
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.error {
+  color: var(--danger);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background: var(--accent);
+}
+
+.btn-danger {
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.badge-pc { background: var(--badge-pc); }
+.badge-playstation { background: var(--badge-playstation); }
+.badge-xbox { background: var(--badge-xbox); }

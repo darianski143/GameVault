@@ -21,7 +21,11 @@ Sample data used across all stages:
 3. Assetto Corsa Competizione, active, PC
 
 ## How to run
-See the Stage 3 and Stage 6 sections: `cd frontend`, `npm install`, then `npm run api` and `npm run dev` in two terminals.
+    cd backend && npm install && npm run dev      # terminal 1, port 3001
+    cd frontend && npm install && npm run dev     # terminal 2, port 5173
+
+The API address is read from `VITE_API_URL` (see `frontend/.env.example`); the backend
+reads `PORT` and `CORS_ORIGIN` (see `backend/.env.example`), both with working defaults.
 The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 
 ## AI usage
@@ -33,6 +37,7 @@ The static mockup from stage 1 is in `mockup/` and opens directly in a browser.
 | Claude | Stage 6: adapting the guide to GameVault (json-server, api.js, useEffect, loading/error states) and documentation |
 | Claude | Stage 7: adapting the guide to GameVault (GameForm, CRUD requests, tw.json, data-testid) and documentation |
 | Claude | Stage 8: adapting the guide to GameVault (React Router, Layout, detail page, CSS Modules) and documentation |
+| Claude | Stage 9: adapting the guide to GameVault (Express backend, `/jocuri` routes, server validation, CORS) and documentation |
 
 Details per stage: see the `ai-log/` folder.
 
@@ -45,7 +50,8 @@ Details per stage: see the `ai-log/` folder.
 - [x] Stage 6: data from a mock API
 - [x] Stage 7: form and validation
 - [x] Stage 8: routing and detail page
-- [ ] Stage 9: own backend with Express
+- [x] Stage 9: own backend with Express
+- [ ] Stage 10: MariaDB and full CRUD
 
 ## Stage 2: data logic
 
@@ -205,6 +211,42 @@ and an about page, plus a 404 page. Component styles moved to CSS Modules.
     npm install
     npm run api    # terminal 1
     npm run dev    # terminal 2, then open http://localhost:5173/jocuri/1
+
+## Stage 9: own backend
+
+json-server is gone. The API is an Express server in `backend/`, with REST
+routes, server side validation and CORS. Data is still kept in memory and
+resets on restart.
+
+- `backend/src/server.js` only starts the server (`PORT`, default 3001); `app.js` builds the
+  app: `cors()` (origin from `CORS_ORIGIN`, default `http://localhost:5173`), `express.json()`,
+  `GET /health`, the `/jocuri` router, a JSON 404 for unknown routes and a central error handler
+- `backend/src/routes/jocuri.js`: `GET /jocuri`, `GET /jocuri/:id`, `POST /jocuri` (201),
+  `PATCH /jocuri/:id`, `DELETE /jocuri/:id` (204); `gasesteIndex` answers 400 for a bad id and
+  404 `{ "error": "Jocul nu există" }` for a missing game; the 7 games from the old `db.json`
+  are the starting data
+- `backend/src/validation.js` (`valideazaJoc`, `parseId`): `titlu` required, max 100 chars;
+  `platforma` one of `pc` / `playstation` / `xbox` (same values as `frontend/src/constants.js`,
+  default `pc`); `completed` boolean (default `false`); optional `dezvoltator` (text, max 100)
+  and `an` (integer 1950–2100). Only these fields are kept, so `id` sent by a client is ignored.
+  PATCH checks only the fields that were sent. Every error is `{ "error": "..." }` with status 400
+- frontend: the only change is in `request` from `src/api.js`, which now shows the server's
+  `error` message (e.g. `/jocuri/999` shows „Jocul nu există” instead of „Eroare server: 404”)
+- removed: `frontend/db.json`, the `api` script and the `json-server` dev dependency
+  (`package-lock.json` updated with `npm install`)
+
+Testing without the interface (second terminal, backend running):
+
+    curl -s -w ' -> %{http_code}\n' http://localhost:3001/jocuri
+    curl -s -w ' -> %{http_code}\n' -X POST http://localhost:3001/jocuri \
+      -H "Content-Type: application/json" -d '{"titlu":"Din curl","platforma":"xbox"}'
+    curl -s -w ' -> %{http_code}\n' -X POST http://localhost:3001/jocuri \
+      -H "Content-Type: application/json" -d '{"titlu":""}'
+    curl -s -w ' -> %{http_code}\n' http://localhost:3001/jocuri/999
+    curl -s -w ' -> %{http_code}\n' -X DELETE http://localhost:3001/jocuri/8
+
+Expected codes: 200, 201, 400, 404, 204. Opening the app at `http://127.0.0.1:5173`
+instead of `localhost` shows a CORS error in the console: a different origin than the allowed one.
 
 ## Verification checklist
 
